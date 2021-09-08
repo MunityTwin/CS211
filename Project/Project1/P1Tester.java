@@ -10,7 +10,7 @@
  *  demo$ javac -cp .;junit-cs211.jar *.java   # compile everything
  *  demo$ java -cp .;junit-cs211.jar P1Tester  # run tests
  */
-/*
+
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
@@ -156,4 +156,3 @@ public class P1Tester {
   @Test(timeout=1000) public void test_replaceitem_02() { testReplaceItem(2, new int[][]{{1,2,3,4,5},{5,4,3,4}}, new int[][]{{1,2,3,1,2,3,5},{5,1,2,3,3,1,2,3}}, 4, new int[]{1,2,3}); }
 
 }
-*/
