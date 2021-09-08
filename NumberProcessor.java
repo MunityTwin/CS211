@@ -57,13 +57,41 @@ public class NumberProcessor {
 
 	/**
 	*
-	* This method returns true if
+	* This method returns true if the input is a Fibonacci Prime
 	*
 	*
 	*/
 	public static boolean isFibonacciPrime(long input) {
-		// DELETE THE LINE BELOW ONCE YOU IMPLEMENT THE CALL!
-		throw new RuntimeException("not implemented!");
+		// Test whether the number is a prime number
+		// Smallest prime number is 2
+		if (input <= 1) {
+			return false;
+		}
+		else {
+			// Iterate i from 2 to n - 1
+			// If input is divisible by i (other than itself), return false. Otherwise, input is a prime number
+			for (int i = 2; i < input; i++) {
+				if (input % i == 0) {
+					return false;
+				}
+			}
+		}
+
+		// Test whether the number is part of the Fibonacci sequence
+		// A number is Fibonacci if one or both of (5*n^2 + 4) or (5*n^2 - 4) is a perfect square.
+		// Calculate the expression
+		int n1 = (int)(5 * Math.pow(input, 2) + 4);
+		int n2 = (int)(5 * Math.pow(input, 2) - 4);
+
+		// Calculate the square root
+		int sqrt1 = (int)Math.sqrt(n1);
+		int sqrt2 = (int)Math.sqrt(n2);
+
+		// Check if the expression is a perfect square
+		if (sqrt1 * sqrt1 == n1 || sqrt2 * sqrt2 == n2) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
