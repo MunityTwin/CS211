@@ -236,48 +236,48 @@ public class NumberProcessor {
 	public static void arrayRotation(int[] array){
 		// Shift all even numbers to the right
 		int firstEvenIndex = -1;
-		int prevEvenIndex = -1;
-		int tempEvenVal = 0;
+		int firstEvenNum = 0;
+		int secondEvenNum = -1;
 		for (int i = 0; i < array.length; ++i) {
 			if (array[i] % 2 == 0) {
 				// Check if it's the first occurence
 				if (firstEvenIndex == -1) {
 					firstEvenIndex = i;
-					prevEvenIndex = i;
+					firstEvenNum = array[i];
 					continue;
 				}
-				tempEvenVal = array[i];
-				array[i] = array[prevEvenIndex];
-				prevEvenIndex = i;
+				secondEvenNum = array[i];
+				array[i] = firstEvenNum;
+				firstEvenNum = secondEvenNum;
 			}
 		}
 		// Move the last even number to the first occurence position
 		// if there are at least 2 even numbers in the array
-		if (firstEvenIndex != prevEvenIndex) {
-			array[firstEvenIndex] = tempEvenVal;
+		if (firstEvenIndex != -1 && secondEvenNum != -1) {
+			array[firstEvenIndex] = secondEvenNum;
 		}
 
-		// Shift all even numbers to the right
+		// Shift all odd numbers to the left
 		int firstOddIndex = -1;
-		int prevOddIndex = -1;
-		int tempOddVal = 0;
+		int firstOddNum = 0;
+		int secondOddNum = -1;
 		for (int i = array.length - 1; i >= 0; --i) {
 			if (array[i] % 2 == 1) {
 				// Check if it's the first occurence
 				if (firstOddIndex == -1) {
 					firstOddIndex = i;
-					prevOddIndex = i;
+					firstOddNum = array[i];
 					continue;
 				}
-				tempOddVal = array[i];
-				array[i] = array[prevOddIndex];
-				prevOddIndex = i;
+				secondOddNum = array[i];
+				array[i] = firstOddNum;
+				firstOddNum = secondOddNum;
 			}
 		}
 		// Move the last odd number to the first occurence position
 		// if there are at least 2 odd numbers in the array
-		if (firstOddIndex != prevOddIndex) {
-			array[firstEvenIndex] = tempOddVal;
+		if (firstOddIndex != -1 && secondOddNum != -1) {
+			array[firstOddIndex] = secondOddNum;
 		}
 	}
 
@@ -286,8 +286,51 @@ public class NumberProcessor {
 	 * replaced by a single occurrence of the respective number
 	 */
 	public static int[][] removeConsecutives(int[][] array){
-		// DELETE THE LINE BELOW ONCE YOU IMPLEMENT THE CALL!
-		throw new RuntimeException("not implemented!");
+		// Initialize an empty array holding the final array after removing all duplicates (including blank array)
+		int[][] finalArr = new int[array.length][];
+		int numOfBlankArr = 0;
+		// Keep track of the current unique number, default to a false value
+		int currentUniqueNumber = array[0][0] - 1;
+		for (int i = 0; i < array.length; ++i) {
+			// For each sub-array, there will always be at least 1 unique element (after excluding duplicates)
+			int totalUniqueElem = 0;
+			for (int j = 0; j < array[i].length; ++j) {	
+				// If the number is different than the current unique number (larger than 1 due to consecutive sequence),
+				// it's a new unique number. Else, disregard it.
+				if (array[i][j] > currentUniqueNumber) {
+					++currentUniqueNumber;
+					++totalUniqueElem;
+				}
+			}
+
+			// Update the number of blank array if the sub-array has no unique element
+			if (totalUniqueElem == 0) {
+				++numOfBlankArr;
+			}
+
+			// Create a new sub-array (including consecutive numbers), starting backward from the current unique number
+			int[] subArr = new int[totalUniqueElem];
+			int count = 0;
+			for (int k = totalUniqueElem - 1; k >= 0; --k) {
+				subArr[k] = currentUniqueNumber - count;
+				++count;
+			}
+
+			// Add the sub-array to the final array
+			finalArr[i] = subArr;
+		}
+
+		// Initialize the result array, getting value from the final array (ignore blank array this time)
+		int[][] result = new int[finalArr.length - numOfBlankArr][];
+		int offset = 0;
+		for (int i = 0; i < result.length; ++i) {
+			if (finalArr[i + offset].length == 0) {
+				++offset;
+			}
+			result[i] = finalArr[i + offset];
+		}
+
+		return result;
 	}
 
 	/**
@@ -369,6 +412,26 @@ public class NumberProcessor {
 		arrayRotation(arr6);
 		for (int i = 0; i < arr6.length; ++i) {
 			System.out.print(arr6[i] + " ");
+		}
+		System.out.println("\n");
+
+		System.out.println("Method 9:");
+		int[][] arr7 = {{1,2,2,2,3,4,5,5},{6,7,8,8,8,9}};
+		int[][] result3 = removeConsecutives(arr7);
+		for (int i = 0; i < result3.length; ++i) {
+			for (int j = 0; j < result3[i].length; ++j) {
+				System.out.print(result3[i][j] + " ");
+			}
+			System.out.print(",");
+		}
+		System.out.println();
+		int[][] arr8 = {{1,2,2,2,3,4,5,5},{5,5,5,5}};
+		int[][] result4 = removeConsecutives(arr8);
+		for (int i = 0; i < result4.length; ++i) {
+			for (int j = 0; j < result4[i].length; ++j) {
+				System.out.print(result4[i][j] + " ");
+			}
+			System.out.print(",");
 		}
 		System.out.println("\n");
 	}
