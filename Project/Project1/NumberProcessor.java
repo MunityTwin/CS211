@@ -248,8 +248,6 @@ public class NumberProcessor {
 				++step;
 				++spiralRing;
 			}
-			System.out.println("Step" + step);
-			System.out.println("Index" + index);
 		}
 
 		return result;
