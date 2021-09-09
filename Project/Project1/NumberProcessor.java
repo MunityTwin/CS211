@@ -1,5 +1,3 @@
-package Project.Project1;
-
 public class NumberProcessor {
 	/**
 	*
@@ -206,27 +204,55 @@ public class NumberProcessor {
 		// Initialize the result array that can hold all elements in the 2D array
 		int[] result = new int[totalRow * totalCol];
 
-		// Unfold the array, keep track of the current index on the result array
-		// Stop folding when all number has been tracked
+		// Steps to unfold an array in a spiral order clockwise starting from index 0,0
+		// 1: Move right
+		// 2: Move down
+		// 3: Move left
+		// 4: Move up
+		// Setup an integer to keep track of the current step
+		// Repeating all steps until all number has been tracked
+		int step = 1;
 		int index = 0;
+		int spiralRing = 0;
 		while (index < result.length) {
-			// Initialize a variable to keep track of the current spiral ring
-			int spiralRing = 0;
-			// For each spiral ring, we perform 4 operations
 			// Move right
-			for (int i = 0; i < totalCol; ++i) {
-				result[index] = array[0][i];
-				++index;
+			if (step % 4 == 1) {
+				for (int i = 0 + spiralRing; i < totalCol - spiralRing; ++i) {
+					result[index] = array[0 + spiralRing][i];
+					++index;
+				}
+				++step;
 			}
-
-			// Move downward
-			for (int j = 0; j < totalRow; ++j) {
-				result[index] = array[j][totalCol - 1];
-				++index;
+			// Move down
+			else if (step % 4 == 2) {
+				for (int i = 1 + spiralRing; i < totalRow - spiralRing; ++i) {
+					result[index] = array[i][totalCol - 1 - spiralRing];
+					++index;
+				}
+				++step;
 			}
-
-			//
+			// Move left
+			else if (step % 4 == 3) {
+				for (int i = totalCol - 2 - spiralRing; i >= 0 + spiralRing; --i) {
+					result[index] = array[totalRow - 1 - spiralRing][i];
+					++index;
+				}
+				++step;
+			}
+			// Move up. End one spiral ring
+			else {
+				for (int i = totalRow - 2 - spiralRing; i >= 1 + spiralRing; --i) {
+					result[index] = array[i][0 + spiralRing];
+					++index;
+				}
+				++step;
+				++spiralRing;
+			}
+			System.out.println("Step" + step);
+			System.out.println("Index" + index);
 		}
+
+		return result;
 	}
 
 	/**
@@ -432,62 +458,75 @@ public class NumberProcessor {
 			System.out.print(",");
 		}
 		System.out.println("\n");
-		
-		System.out.println("Method 8:");
-		int[] arr5 = {1,2,3,4,5,6,7,8,9};
-		arrayRotation(arr5);
-		for (int i = 0; i < arr5.length; ++i) {
-			System.out.print(arr5[i] + " ");
+
+		System.out.println("Method 7:");
+		int[][] arr5 = {{1,2,3},{4,5,6},{7,8,9}};
+		int[] result3 = spiralUnfolding(arr5);
+		for (int i = 0; i < result3.length; ++i) {
+			System.out.print(result3[i] + " ");
 		}
 		System.out.println();
-		int[] arr6 = {5,7,1,6,8,3};
-		arrayRotation(arr6);
-		for (int i = 0; i < arr6.length; ++i) {
-			System.out.print(arr6[i] + " ");
+		int[][] arr6 = {{1,2,3,4,5},{6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20}};
+		int[] result4 = spiralUnfolding(arr6);
+		for (int i = 0; i < result4.length; ++i) {
+			System.out.print(result4[i] + " ");
+		}
+		System.out.println("\n");
+		
+		System.out.println("Method 8:");
+		int[] arr7 = {1,2,3,4,5,6,7,8,9};
+		arrayRotation(arr7);
+		for (int i = 0; i < arr7.length; ++i) {
+			System.out.print(arr7[i] + " ");
+		}
+		System.out.println();
+		int[] arr8 = {5,7,1,6,8,3};
+		arrayRotation(arr8);
+		for (int i = 0; i < arr8.length; ++i) {
+			System.out.print(arr8[i] + " ");
 		}
 		System.out.println("\n");
 
 		System.out.println("Method 9:");
-		int[][] arr7 = {{1,2,2,2,3,4,5,5},{6,7,8,8,8,9}};
-		int[][] result3 = removeConsecutives(arr7);
-		for (int i = 0; i < result3.length; ++i) {
-			for (int j = 0; j < result3[i].length; ++j) {
-				System.out.print(result3[i][j] + " ");
+		int[][] arr9 = {{1,2,2,2,3,4,5,5},{6,7,8,8,8,9}};
+		int[][] result5 = removeConsecutives(arr9);
+		for (int i = 0; i < result5.length; ++i) {
+			for (int j = 0; j < result5[i].length; ++j) {
+				System.out.print(result5[i][j] + " ");
 			}
 			System.out.print(",");
 		}
 		System.out.println();
-		int[][] arr8 = {{1,2,2,2,3,4,5,5},{5,5,5,5}};
-		int[][] result4 = removeConsecutives(arr8);
-		for (int i = 0; i < result4.length; ++i) {
-			for (int j = 0; j < result4[i].length; ++j) {
-				System.out.print(result4[i][j] + " ");
+		int[][] arr10 = {{1,2,2,2,3,4,5,5},{5,5,5,5}};
+		int[][] result6 = removeConsecutives(arr10);
+		for (int i = 0; i < result6.length; ++i) {
+			for (int j = 0; j < result6[i].length; ++j) {
+				System.out.print(result6[i][j] + " ");
 			}
 			System.out.print(",");
 		}
 		System.out.println("\n");
 
 		System.out.println("Method 10:");
-		int[][] arr9 = {{1,2,3,4,5},{6,7,8,9}};
+		int[][] arr11 = {{1,2,3,4,5},{6,7,8,9}};
 		int[] replacement1 = {0,-1};
-		replaceItem(arr9, 2, replacement1);
-		for (int i = 0; i < arr9.length; ++i) {
-			for (int j = 0; j < arr9[i].length; ++j) {
-				System.out.print(arr9[i][j] + " ");
+		replaceItem(arr11, 2, replacement1);
+		for (int i = 0; i < arr11.length; ++i) {
+			for (int j = 0; j < arr11[i].length; ++j) {
+				System.out.print(arr11[i][j] + " ");
 			}
 			System.out.print(",");
 		}
 		System.out.println();
-		int[][] arr10 = {{1,2,3,4,5},{5,4,3,4}};
+		int[][] arr12 = {{1,2,3,4,5},{5,4,3,4}};
 		int[] replacement2 = {1,2,3};
-		replaceItem(arr10, 4, replacement2);
-		for (int i = 0; i < arr10.length; ++i) {
-			for (int j = 0; j < arr10[i].length; ++j) {
-				System.out.print(arr10[i][j] + " ");
+		replaceItem(arr12, 4, replacement2);
+		for (int i = 0; i < arr12.length; ++i) {
+			for (int j = 0; j < arr12[i].length; ++j) {
+				System.out.print(arr12[i][j] + " ");
 			}
 			System.out.print(",");
 		}
 		System.out.println("\n");
 	}
-
 }
