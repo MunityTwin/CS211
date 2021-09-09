@@ -338,8 +338,40 @@ public class NumberProcessor {
 	 * is replaced by replacement.
 	 */
 	public static void replaceItem(int[][] array, int item, int[] replacement){
-		// DELETE THE LINE BELOW ONCE YOU IMPLEMENT THE CALL!
-		throw new RuntimeException("not implemented!");
+		// Iterate through the given array
+		for (int i = 0; i < array.length; ++i) {
+			// For each sub-array, count the number of occurences
+			int totalOccur = 0;
+			for (int j = 0; j < array[i].length; ++j) {	
+				if (array[i][j] == item) {
+					++totalOccur;
+				}
+			}
+
+			// Create a new sub-array including the replacement elements
+			int[] subArr = new int[(array[i].length - totalOccur) + (totalOccur * replacement.length)];
+			int offset = 0;
+			int remainingElem = 0;
+			// Go through each element in the given sub-array, add the corresponding value to the new sub-array
+			for (int k = 0; k < subArr.length; ++k) {
+				if (remainingElem == 0 && array[i][k - offset] != item) {
+					subArr[k] = array[i][k - offset];
+				} 
+				else {
+					if (remainingElem == 0) {
+						remainingElem = replacement.length;
+					}
+					subArr[k] = replacement[replacement.length - remainingElem];
+					if (remainingElem > 1) {
+						++offset;
+					}
+					--remainingElem;
+				}
+			}
+
+			// Add the sub-array to the given array
+			array[i] = subArr;
+		}
 	}
 
 	/**
@@ -430,6 +462,28 @@ public class NumberProcessor {
 		for (int i = 0; i < result4.length; ++i) {
 			for (int j = 0; j < result4[i].length; ++j) {
 				System.out.print(result4[i][j] + " ");
+			}
+			System.out.print(",");
+		}
+		System.out.println("\n");
+
+		System.out.println("Method 10:");
+		int[][] arr9 = {{1,2,3,4,5},{6,7,8,9}};
+		int[] replacement1 = {0,-1};
+		replaceItem(arr9, 2, replacement1);
+		for (int i = 0; i < arr9.length; ++i) {
+			for (int j = 0; j < arr9[i].length; ++j) {
+				System.out.print(arr9[i][j] + " ");
+			}
+			System.out.print(",");
+		}
+		System.out.println();
+		int[][] arr10 = {{1,2,3,4,5},{5,4,3,4}};
+		int[] replacement2 = {1,2,3};
+		replaceItem(arr10, 4, replacement2);
+		for (int i = 0; i < arr10.length; ++i) {
+			for (int j = 0; j < arr10[i].length; ++j) {
+				System.out.print(arr10[i][j] + " ");
 			}
 			System.out.print(",");
 		}
