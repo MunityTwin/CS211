@@ -77,15 +77,16 @@ public class NumberProcessor {
 			}
 		}
 
+		System.out.println("Number is prime");
 		// Test whether the number is part of the Fibonacci sequence
 		// A number is Fibonacci if one or both of (5*n^2 + 4) or (5*n^2 - 4) is a perfect square.
 		// Calculate the expression
-		int n1 = (int)(5 * Math.pow(input, 2) + 4);
-		int n2 = (int)(5 * Math.pow(input, 2) - 4);
+		long n1 = (long)(5 * Math.pow(input, 2) + 4);
+		long n2 = (long)(5 * Math.pow(input, 2) - 4);
 
 		// Calculate the square root
-		int sqrt1 = (int)Math.sqrt(n1);
-		int sqrt2 = (int)Math.sqrt(n2);
+		long sqrt1 = (long)Math.sqrt(n1);
+		long sqrt2 = (long)Math.sqrt(n2);
 
 		// Check if the expression is a perfect square
 		if (sqrt1 * sqrt1 == n1 || sqrt2 * sqrt2 == n2) {
@@ -415,7 +416,7 @@ public class NumberProcessor {
 
 		System.out.println("Method 3:");
 		System.out.println(isFibonacciPrime(5));
-		System.out.println(isFibonacciPrime(8));
+		System.out.println(isFibonacciPrime(514229));
 		System.out.println();
 
 		System.out.println("Method 4:");

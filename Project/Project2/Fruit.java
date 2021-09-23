@@ -5,8 +5,8 @@ public class Fruit {
 
     public Fruit(double pricePerUnit, int stock, int freshUntil) {
         this.pricePerUnit = pricePerUnit;
-        this.stock = stock;
-        this.freshUntil = freshUntil;
+        setStock(stock);
+        setFreshUntil(freshUntil);
     }
 
     public double getPricePerUnit() {
@@ -30,7 +30,7 @@ public class Fruit {
     }
 
     public String getUnits() {
-        return "pound";
+        return "pounds";
     }
 
     public String name() {
