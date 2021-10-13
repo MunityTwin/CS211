@@ -1,7 +1,10 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Test {
+public class Test extends Abstract {
+	@Override
+	public void feed() {
+		System.out.println("Feeded");
+	}
     public static void main (String args[]) {
         ArrayList<Integer> array = new ArrayList<Integer>();
 		array.add(10);
